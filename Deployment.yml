@@ -1,0 +1,19 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+matadata:
+  name: webserver
+  labels:
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: sunny
+  template:
+    matadata:
+      name: webserver
+      labels:
+    spec:
+      containers:
+        - name: webserver
+          image: tomee

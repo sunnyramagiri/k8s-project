@@ -1,14 +1,16 @@
-FROM node
+FROM node:latest
 
+# Create a new user
+RUN useradd -m appuser
 
+# Create the directory and file directly in the image
+RUN mkdir -p /app && echo "This is Joe's user file" > /app/newuser.txt
 
+# Set working directory
+WORKDIR /app
 
-COPY package*.json ./
+# Switch to the appuser (optional if you want non-root)
+USER appuser
 
-
-RUN apt update && apt install -y npm
-
-
-EXPOSE 3000
-
-WORKDIR /user/ubuntu/home/sarika/app
+# Dummy command (optional, example)
+CMD ["node"]

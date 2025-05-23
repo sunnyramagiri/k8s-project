@@ -1,0 +1,37 @@
+pipeline {
+    
+    agent any
+    
+    tools {
+        maven 'maven'
+    }
+    
+    stages{
+        stage('git clone') {
+            steps {
+                echo 'git success'
+                git 'https://github.com/sunnyramagiri/k8s-project.git'
+            }
+        }
+        stage('mvn') {
+            steps {
+                echo 'mvn success'
+                sh 'mvn clean package'
+            }
+        }
+        stage('docker-build') {
+            steps {
+                script {
+                    echo 'build success'
+                    sh 'docker build -t mynod .'
+                }
+            }
+        }
+        stage('k8s-deploy') {
+            steps {
+                echo 'k8s success'
+                sh 'kubectl apply -f Deployment.yml'
+            }
+        }
+    }
+}

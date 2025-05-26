@@ -1,6 +1,7 @@
-FROM node:latest
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-CMD ["node", "app.js"]
+# Dockerfile for Spring Boot project
+
+FROM openjdk:17-jdk-slim
+VOLUME /tmp
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

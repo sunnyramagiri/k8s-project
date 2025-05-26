@@ -1,10 +1,6 @@
-FROM node
-
-WORKDIR /user/ubuntu/home/sarika/app
-
+FROM node:latest
+WORKDIR /app
 COPY package*.json ./
-
-RUN apt update && apt install -y npm
-
-EXPOSE 3000
-
+RUN npm install
+COPY . .
+CMD ["node", "app.js"]
